@@ -1,10 +1,17 @@
-<script setup lang="ts"></script>
+<script setup lang="ts">
+interface Props {
+  value: string;
+}
+withDefaults(defineProps<Props>(), {
+  value: "Submit",
+});
+</script>
 
 <template>
   <div>
     <input
       type="submit"
-      v-bind="$attrs"
+      :value="$props.value"
       class="
         bg-blue-500
         hover:bg-blue-700
