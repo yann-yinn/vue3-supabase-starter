@@ -5,11 +5,11 @@ interface Props {
   required: boolean;
   error: string | undefined;
 }
-const props = defineProps<Props>();
+defineProps<Props>();
 
 const emit = defineEmits(["update:modelValue"]);
 
-function handleInput(event) {
+function handleInput(event: any) {
   emit("update:modelValue", event.target.value);
 }
 </script>
@@ -19,8 +19,8 @@ function handleInput(event) {
     <input
       :value="modelValue"
       @input="handleInput"
-      :type="$props.type"
-      :required="$props.required"
+      :type="type"
+      :required="required"
       class="
         mt-1
         block
@@ -32,5 +32,5 @@ function handleInput(event) {
       "
     />
   </div>
-  <div class="text-red-600 mt-2">{{ $props.error }}</div>
+  <div v-show="error" class="text-red-600 mt-2">{{ error }}</div>
 </template>

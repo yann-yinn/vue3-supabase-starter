@@ -4,8 +4,12 @@ import InputSubmit from "@/uiKit/InputSubmit.vue";
 import { useField } from "vee-validate";
 import * as yup from "yup";
 
-const fieldEmail = useField<string>("email", yup.string().required());
-const fieldPassword = useField<string>("password", yup.string().required());
+const fieldEmail = useField<string>("email", yup.string().required(), {
+  initialValue: "",
+});
+const fieldPassword = useField<string>("password", yup.string().required(), {
+  initialValue: "",
+});
 
 function handleFormSubmit() {
   alert("form submitted");
@@ -22,6 +26,7 @@ function handleFormSubmit() {
         :error="fieldEmail.errorMessage.value"
       />
     </div>
+
     <div class="mt-4">
       <InputField
         type="password"
@@ -30,6 +35,7 @@ function handleFormSubmit() {
         required
       />
     </div>
+
     <div class="mt-4">
       <InputSubmit />
     </div>
