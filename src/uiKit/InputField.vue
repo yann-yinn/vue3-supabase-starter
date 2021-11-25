@@ -32,5 +32,5 @@ function handleInput(event: any) {
       "
     />
   </div>
-  <div v-show="error" class="text-red-600 mt-2">{{ error }}</div>
+  <div v-if="error" class="text-red-600 mt-2">{{ error }}</div>
 </template>

@@ -3,7 +3,12 @@ import InputField from "@/uiKit/InputField.vue";
 import InputSubmit from "@/uiKit/InputSubmit.vue";
 import { useField } from "vee-validate";
 import * as yup from "yup";
+import useSupabase from "@/composables/useSupabase";
+import { ref } from "vue";
 
+const signUpError = ref<string | null>(null);
+
+const supabase = useSupabase();
 const fieldEmail = useField<string>("email", yup.string().required(), {
   initialValue: "",
 });
@@ -11,8 +16,20 @@ const fieldPassword = useField<string>("password", yup.string().required(), {
   initialValue: "",
 });
 
-function handleFormSubmit() {
-  alert("form submitted");
+async function handleFormSubmit() {
+  const values = {
+    email: fieldEmail.value.value,
+    password: fieldPassword.value.value,
+  };
+  supabase.auth
+    .signUp(values)
+    .then((result) => {
+      console.log("result", result);
+    })
+    .catch((error: any) => {
+      signUpError.value = error;
+      throw new Error(error);
+    });
 }
 </script>
 
@@ -37,7 +54,7 @@ function handleFormSubmit() {
     </div>
 
     <div class="mt-4">
-      <InputSubmit value="Login" />
+      <InputSubmit value="Register" />
     </div>
   </form>
 </template>

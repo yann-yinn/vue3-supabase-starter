@@ -1,6 +1,6 @@
 <script setup lang="ts">
 interface Props {
-  value: string;
+  value?: string;
 }
 withDefaults(defineProps<Props>(), {
   value: "Submit",
