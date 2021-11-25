@@ -1,6 +1,6 @@
 <script setup lang="ts">
 import InputField from "@/uiKit/InputField.vue";
-import InputSubmit from "@/uiKit/InputSubmit.vue";
+import AppButton from "@/uiKit/AppButton.vue";
 import { useField } from "vee-validate";
 import * as yup from "yup";
 
@@ -37,7 +37,7 @@ function handleFormSubmit() {
     </div>
 
     <div class="mt-4">
-      <InputSubmit value="Login" />
+      <AppButton type="submit">Login</AppButton>
     </div>
   </form>
 </template>

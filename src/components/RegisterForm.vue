@@ -1,14 +1,23 @@
 <script setup lang="ts">
 import InputField from "@/uiKit/InputField.vue";
-import InputSubmit from "@/uiKit/InputSubmit.vue";
+import AppButton from "@/uiKit/AppButton.vue";
 import { useField } from "vee-validate";
 import * as yup from "yup";
 import useSupabase from "@/composables/useSupabase";
-import { ref } from "vue";
+import { reactive } from "vue";
 
-const signUpError = ref<string | null>(null);
+interface State {
+  signUpError: string | null;
+  signUpPending: boolean;
+}
+
+const state = reactive<State>({
+  signUpError: null,
+  signUpPending: false,
+});
 
 const supabase = useSupabase();
+
 const fieldEmail = useField<string>("email", yup.string().required(), {
   initialValue: "",
 });
@@ -17,6 +26,7 @@ const fieldPassword = useField<string>("password", yup.string().required(), {
 });
 
 async function handleFormSubmit() {
+  state.signUpPending = true;
   const values = {
     email: fieldEmail.value.value,
     password: fieldPassword.value.value,
@@ -27,8 +37,11 @@ async function handleFormSubmit() {
       console.log("result", result);
     })
     .catch((error: any) => {
-      signUpError.value = error;
+      state.signUpError = error;
       throw new Error(error);
+    })
+    .finally(() => {
+      state.signUpPending = false;
     });
 }
 </script>
@@ -54,7 +67,9 @@ async function handleFormSubmit() {
     </div>
 
     <div class="mt-4">
-      <InputSubmit value="Register" />
+      <AppButton type="submit" :disabled="state.signUpPending">
+        {{ state.signUpPending ? "Pending..." : "Register" }}
+      </AppButton>
     </div>
   </form>
 </template>
