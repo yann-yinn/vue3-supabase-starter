@@ -23,6 +23,7 @@ const state = reactive({
 });
 
 function handleFormSubmit() {
+  state.submitError = null;
   state.submitPending = true;
   const values = {
     email: fieldEmail.value.value,
@@ -31,6 +32,9 @@ function handleFormSubmit() {
   supabase.auth
     .signIn(values)
     .then((response) => {
+      if (response.error) {
+        throw new Error(response.error.message);
+      }
       if (response.user) {
         store.user = {
           id: response.user.id,
@@ -40,7 +44,6 @@ function handleFormSubmit() {
       }
     })
     .catch((error: any) => {
-      console.log("error", error);
       state.submitError = error;
       throw new Error(error);
     })
@@ -52,6 +55,9 @@ function handleFormSubmit() {
 
 <template>
   <form @submit.prevent="handleFormSubmit">
+    <div class="bg-red-300 p-3 rounded my-3" v-if="state.submitError">
+      {{ state.submitError }}
+    </div>
     <div class="mt-4">
       <InputField
         type="email"

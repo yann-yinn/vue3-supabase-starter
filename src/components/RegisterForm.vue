@@ -31,6 +31,9 @@ async function handleFormSubmit() {
   supabase.auth
     .signUp(values)
     .then((response: any) => {
+      if (response.error) {
+        throw new Error(response.error.message);
+      }
       store.user = {
         id: response.user.id,
         name: response.user.name,
