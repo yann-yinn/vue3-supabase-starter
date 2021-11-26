@@ -32,14 +32,14 @@ function handleFormSubmit() {
   supabase.auth
     .signIn(values)
     .then((response) => {
+      console.log("reponse", response);
       if (response.error) {
         throw new Error(response.error.message);
       }
       if (response.user) {
         store.user = {
           id: response.user.id,
-          name: response.user.name,
-          email: response.user.email,
+          email: response.user.email as string,
         };
       }
     })
