@@ -5,8 +5,18 @@ import { useField } from "vee-validate";
 import * as yup from "yup";
 import { reactive } from "vue";
 import useAuth from "@/composables/useAuth";
+import { useRouter, useRoute } from "vue-router";
+import useStore from "@/stores";
 
+const router = useRouter();
+const route = useRoute();
 const { login } = useAuth();
+const store = useStore();
+
+const state = reactive({
+  submitError: null as string | null,
+  submitPending: false,
+});
 
 const fieldEmail = useField<string>("email", yup.string().required(), {
   initialValue: "",
@@ -15,22 +25,26 @@ const fieldPassword = useField<string>("password", yup.string().required(), {
   initialValue: "",
 });
 
-const state = reactive({
-  submitError: null as string | null,
-  submitPending: false,
-});
-
 function handleFormSubmit() {
   state.submitError = null;
   state.submitPending = true;
-  const values = {
+
+  const loginValues = {
     email: fieldEmail.value.value,
     password: fieldPassword.value.value,
   };
-  login(values)
+  login(loginValues)
     .catch((error: any) => {
       state.submitError = error;
       throw new Error(error);
+    })
+    .then(() => {
+      router.push({
+        name: "home",
+        query: {
+          ...route.query,
+        },
+      });
     })
     .finally(() => {
       state.submitPending = false;
@@ -65,6 +79,9 @@ function handleFormSubmit() {
       <AppButton type="submit">
         {{ state.submitPending ? "Pending..." : "Login" }}
       </AppButton>
+    </div>
+    <div class="mt-4">
+      <router-link to="/forgot-password">Forgot password</router-link>
     </div>
   </form>
 </template>

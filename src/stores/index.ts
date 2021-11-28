@@ -5,12 +5,16 @@ export default defineStore("main", {
   state: () => {
     return {
       user: getLocalStorageUser(),
+      forgotPasswordEmail: "",
     };
   },
   actions: {
     setUser(user: User | null) {
       this.user = user;
       setLocalStorageUser(user);
+    },
+    setForgotPasswordEmail(email: string) {
+      this.forgotPasswordEmail = email;
     },
   },
 });

@@ -7,6 +7,9 @@ function login(values: { email: string; password: string }) {
   const store = useStore();
   return supabase.auth.signIn(values).then((response) => {
     if (response.error) {
+      // sauvegarder l'email du login dans le store, pour pouvoir
+      // pré-remplir le champ "email" du formulaire de "forgot-password"
+      store.setForgotPasswordEmail(values.email);
       throw new Error(response.error.message);
     }
     if (response.user) {
