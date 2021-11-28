@@ -2,6 +2,7 @@
 import useAuth from "@/composables/useAuth";
 import useStore from "@/stores";
 const store = useStore();
+console.log("store", store);
 
 async function logout() {
   const auth = useAuth();
@@ -11,11 +12,11 @@ async function logout() {
 
 <template>
   <div class="text-center">
-    <router-link to="/">Home</router-link> |
-    <router-link to="/login">Login</router-link> |
-    <router-link to="/register">Register</router-link> |
-    <a class="cursor-pointer" @click="logout">Logout</a>
-    <span v-if="store.user">| 🔒 {{ store.user.email }}</span>
+    <router-link to="/">Home</router-link>
+    <router-link v-if="!store.user" to="/login"> | Login</router-link>
+    <router-link v-if="!store.user" to="/register"> | Register</router-link>
+    <a v-if="store.user" class="cursor-pointer" @click="logout"> | Logout </a>
+    <span v-if="store.user">( {{ store.user.email }} )</span>
   </div>
   <div>
     <router-view />
