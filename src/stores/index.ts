@@ -1,16 +1,18 @@
 import { defineStore } from "pinia";
 import { User } from "@/types";
 
-export const useStore = defineStore("main", {
+export default defineStore("main", {
   state: () => {
     return {
       user: getLocalStorageUser(),
     };
   },
-});
-
-useStore().$subscribe((mutation, state) => {
-  setLocalStorageUser(state.user);
+  actions: {
+    setUser(user: User | null) {
+      this.user = user;
+      setLocalStorageUser(user);
+    },
+  },
 });
 
 function setLocalStorageUser(user: User | null) {

@@ -3,17 +3,15 @@ import InputField from "@/uiKit/InputField.vue";
 import AppButton from "@/uiKit/AppButton.vue";
 import { useField } from "vee-validate";
 import * as yup from "yup";
-import useSupabase from "@/composables/useSupabase";
 import { reactive } from "vue";
-import { useStore } from "@/stores";
+import useAuth from "@/composables/useAuth";
+
+const { register } = useAuth();
 
 const state = reactive({
   submitError: null as string | null,
   submitPending: false,
 });
-
-const store = useStore();
-const supabase = useSupabase();
 
 const fieldEmail = useField<string>("email", yup.string().required(), {
   initialValue: "",
@@ -28,17 +26,7 @@ async function handleFormSubmit() {
     email: fieldEmail.value.value,
     password: fieldPassword.value.value,
   };
-  supabase.auth
-    .signUp(values)
-    .then((response: any) => {
-      if (response.error) {
-        throw new Error(response.error.message);
-      }
-      store.user = {
-        id: response.user.id,
-        email: response.user.email,
-      };
-    })
+  register(values)
     .catch((error: any) => {
       state.submitError = error;
       throw new Error(error);

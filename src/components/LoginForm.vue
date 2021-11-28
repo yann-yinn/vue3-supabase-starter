@@ -4,11 +4,9 @@ import AppButton from "@/uiKit/AppButton.vue";
 import { useField } from "vee-validate";
 import * as yup from "yup";
 import { reactive } from "vue";
-import useSupabase from "@/composables/useSupabase";
-import { useStore } from "@/stores";
+import useAuth from "@/composables/useAuth";
 
-const store = useStore();
-const supabase = useSupabase();
+const { login } = useAuth();
 
 const fieldEmail = useField<string>("email", yup.string().required(), {
   initialValue: "",
@@ -29,20 +27,7 @@ function handleFormSubmit() {
     email: fieldEmail.value.value,
     password: fieldPassword.value.value,
   };
-  supabase.auth
-    .signIn(values)
-    .then((response) => {
-      console.log("reponse", response);
-      if (response.error) {
-        throw new Error(response.error.message);
-      }
-      if (response.user) {
-        store.user = {
-          id: response.user.id,
-          email: response.user.email as string,
-        };
-      }
-    })
+  login(values)
     .catch((error: any) => {
       state.submitError = error;
       throw new Error(error);
@@ -77,7 +62,9 @@ function handleFormSubmit() {
     </div>
 
     <div class="mt-4">
-      <AppButton type="submit">Login</AppButton>
+      <AppButton type="submit">
+        {{ state.submitPending ? "Pending..." : "Login" }}
+      </AppButton>
     </div>
   </form>
 </template>
