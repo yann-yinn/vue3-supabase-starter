@@ -1,22 +1,23 @@
 import { defineStore } from "pinia";
 import { User } from "@/types";
+import { ref } from "vue";
 
-export default defineStore("main", {
-  state: () => {
-    return {
-      user: getLocalStorageUser(),
-      forgotPasswordEmail: "",
-    };
-  },
-  actions: {
-    setUser(user: User | null) {
-      this.user = user;
-      setLocalStorageUser(user);
-    },
-    setForgotPasswordEmail(email: string) {
-      this.forgotPasswordEmail = email;
-    },
-  },
+type UserNullable = User | null;
+
+export default defineStore("main", () => {
+  const user = ref<UserNullable>(getLocalStorageUser());
+  const forgotPasswordEmail = ref<string | null>(null);
+
+  function setUser(value: UserNullable) {
+    user.value = value;
+    setLocalStorageUser(value);
+  }
+
+  function setForgotPasswordEmail(email: string) {
+    forgotPasswordEmail.value = email;
+  }
+
+  return { user, setUser, forgotPasswordEmail, setForgotPasswordEmail };
 });
 
 function setLocalStorageUser(user: User | null) {
@@ -29,7 +30,7 @@ function setLocalStorageUser(user: User | null) {
 }
 
 function getLocalStorageUser() {
-  let user: null | User = null;
+  let user: UserNullable = null;
   const userJsonString = localStorage.getItem("user");
   if (userJsonString) {
     user = JSON.parse(userJsonString);
