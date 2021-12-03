@@ -30,7 +30,6 @@ const router = createRouter({
 
 router.beforeEach(async (to, from) => {
   const store = useStore();
-  console.log("store.user", store.user);
   if (to.name === "login") {
     if (store.user) return "/home";
   }
