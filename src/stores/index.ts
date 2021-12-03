@@ -1,26 +1,28 @@
 import { defineStore } from "pinia";
 import { User } from "@/types";
-import { ref } from "vue";
+import { reactive, toRefs } from "vue";
 
-type UserNullable = User | null;
+type UserOrNull = User | null;
 
 export default defineStore("main", () => {
-  const user = ref<UserNullable>(getLocalStorageUser());
-  const forgotPasswordEmail = ref<string | null>(null);
+  const state = reactive({
+    user: getLocalStorageUser(),
+    forgotPasswordEmail: null as string | null,
+  });
 
-  function setUser(value: UserNullable) {
-    user.value = value;
+  function setForgotPasswordEmail(email: string) {
+    state.forgotPasswordEmail = email;
+  }
+
+  function setUser(value: UserOrNull) {
+    state.user = value;
     setLocalStorageUser(value);
   }
 
-  function setForgotPasswordEmail(email: string) {
-    forgotPasswordEmail.value = email;
-  }
-
-  return { user, setUser, forgotPasswordEmail, setForgotPasswordEmail };
+  return { ...toRefs(state), setUser, setForgotPasswordEmail };
 });
 
-function setLocalStorageUser(user: User | null) {
+function setLocalStorageUser(user: UserOrNull) {
   // save user object to local storage, if different from null
   if (user === null) {
     localStorage.removeItem("user");
@@ -30,7 +32,7 @@ function setLocalStorageUser(user: User | null) {
 }
 
 function getLocalStorageUser() {
-  let user: UserNullable = null;
+  let user: UserOrNull = null;
   const userJsonString = localStorage.getItem("user");
   if (userJsonString) {
     user = JSON.parse(userJsonString);
