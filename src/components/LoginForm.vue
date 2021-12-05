@@ -4,14 +4,12 @@ import AppButton from "@/uiKit/AppButton.vue";
 import { useField } from "vee-validate";
 import * as yup from "yup";
 import { reactive } from "vue";
-import useAuth from "@/composables/useAuth";
+import useSupabase from "@/composables/useSupabase";
 import { useRouter, useRoute } from "vue-router";
-import useStore from "@/stores";
 
 const router = useRouter();
 const route = useRoute();
-const { login } = useAuth();
-const store = useStore();
+const { login } = useSupabase();
 
 const state = reactive({
   submitError: null as string | null,

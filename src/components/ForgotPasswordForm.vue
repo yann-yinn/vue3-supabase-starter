@@ -7,16 +7,21 @@ import { reactive } from "vue";
 import useSupabase from "@/composables/useSupabase";
 import useStore from "@/stores";
 
-const supabase = useSupabase();
+interface State {
+  submitError: string | null;
+  submitPending: boolean;
+}
+
+const { supabase } = useSupabase();
 const store = useStore();
 
-const state = reactive({
+const state = reactive<State>({
   submitError: null as string | null,
   submitPending: false,
 });
 
 const fieldEmail = useField<string>("email", yup.string().required(), {
-  initialValue: store.forgotPasswordEmail,
+  initialValue: store.forgotPasswordEmail ? store.forgotPasswordEmail : "",
 });
 
 async function handleFormSubmit() {

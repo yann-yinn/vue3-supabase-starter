@@ -1,25 +1,35 @@
 import { defineStore } from "pinia";
 import { User } from "@/types";
-import { reactive, toRefs } from "vue";
+import { reactive, toRefs, computed } from "vue";
 
 type UserOrNull = User | null;
+type StringOrNull = string | null;
+
+interface State {
+  user: UserOrNull;
+  forgotPasswordEmail: StringOrNull;
+}
 
 export default defineStore("main", () => {
-  const state = reactive({
+  const state = reactive<State>({
     user: getLocalStorageUser(),
-    forgotPasswordEmail: null as string | null,
+    forgotPasswordEmail: null,
   });
-
-  function setForgotPasswordEmail(email: string) {
-    state.forgotPasswordEmail = email;
-  }
 
   function setUser(value: UserOrNull) {
     state.user = value;
-    setLocalStorageUser(value);
+    setLocalStorageUser(state.user);
   }
 
-  return { ...toRefs(state), setUser, setForgotPasswordEmail };
+  function setForgotPasswordEmail(email: StringOrNull) {
+    state.forgotPasswordEmail = email;
+  }
+
+  return {
+    ...toRefs(state), // le .value sera "unwrappé" par le store (cf https://github.com/kiaking/rfcs/blob/vuex-5/active-rfcs/0000-vuex-5.md#creating-a-store-via-vuex-instance)
+    setUser,
+    setForgotPasswordEmail,
+  };
 });
 
 function setLocalStorageUser(user: UserOrNull) {

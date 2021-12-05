@@ -4,9 +4,9 @@ import AppButton from "@/uiKit/AppButton.vue";
 import { useField } from "vee-validate";
 import * as yup from "yup";
 import { reactive } from "vue";
-import useAuth from "@/composables/useAuth";
+import useSupabase from "@/composables/useSupabase";
 
-const { register } = useAuth();
+const { register } = useSupabase();
 
 const state = reactive({
   submitError: null as string | null,
