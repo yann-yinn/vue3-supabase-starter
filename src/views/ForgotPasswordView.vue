@@ -4,7 +4,7 @@ import ForgotPasswordForm from "@/components/ForgotPasswordForm.vue";
 
 <template>
   <div class="mx-auto max-w-md mt-4">
-    <h1 class="text-2xl">Register</h1>
+    <h1 class="text-2xl">Reset password</h1>
     <div>
       <ForgotPasswordForm />
     </div>

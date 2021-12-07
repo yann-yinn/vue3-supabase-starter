@@ -18,7 +18,6 @@ async function handleLogoutClick() {
     <a v-if="store.user" class="cursor-pointer" @click="handleLogoutClick">
       Logout
     </a>
-    <span v-if="store.user">( {{ store.user.email }} )</span>
   </div>
   <div>
     <router-view />
