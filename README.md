@@ -57,3 +57,8 @@ Le projet utilise le package `@supabase/supabase-js`. Pour récupérer l'instanc
 ```js
 const supabase = useSupabase();
 ```
+
+### Todo
+
+- [ ] forgot password
+- [ ] email confirmation
