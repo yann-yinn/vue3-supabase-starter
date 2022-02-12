@@ -1,6 +1,6 @@
 # Vue 3 Supabase Starter
 
-Authentification prête à l'emploi avec [Supabase](https://supabase.com/) et Tailwind CSS.
+Authentification prête à l'emploi avec [Supabase](https://supabase.com/), Vue 3 & Tailwind CSS.
 
 - formulaire de login avec validation (vee-validate)
 - formulaire de création de compte
@@ -19,3 +19,13 @@ Vous devez créer un projet sur [Supabase](https://supabase.com/) avant toute ch
 - Créer un fichier `.env` et renseigner les variables présentes dans le fichier `env.d.ts`.
 - `npm install`
 - `npm run dev`
+
+## Utilisation
+
+Utilisez le composable `useAuth` pour tout ce qui est lié à l'authentification.
+
+```js
+const { user, login, register, logout } = useAuth();
+```
+
+Ci-dessus, `user` est l'utilisateur actuellement connecté, il s'agit d'une variable réactive.
