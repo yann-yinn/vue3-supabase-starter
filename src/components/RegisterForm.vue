@@ -5,7 +5,10 @@ import { useField } from "vee-validate";
 import * as yup from "yup";
 import { reactive } from "vue";
 import useAuth from "@/composables/useAuth";
+import { useRouter, useRoute } from "vue-router";
 
+const router = useRouter();
+const route = useRoute();
 const { register } = useAuth();
 
 const state = reactive({
@@ -30,6 +33,14 @@ async function handleFormSubmit() {
     .catch((error: any) => {
       state.submitError = error;
       throw new Error(error);
+    })
+    .then(() => {
+      router.push({
+        name: "home",
+        query: {
+          ...route.query,
+        },
+      });
     })
     .finally(() => {
       state.submitPending = false;
