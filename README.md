@@ -22,6 +22,8 @@ Vous devez créer un projet sur [Supabase](https://supabase.com/) avant toute ch
 
 ## Utilisation
 
+Tout le code est dans un dossier "src/auth" (composants, composables etc) pour qu'il soit plus facile de déplacer l'authentification supabase sur un projet existant.
+
 ### useAuth
 
 Utilisez le composable `useAuth` pour tout ce qui est lié à l'authentification.
@@ -36,7 +38,7 @@ Exemple: afficher un lien dans le menu seulement pour un utilisateur connecté:
 
 ```html
 <script setup lang="ts">
-  import useAuth from "./composables/useAuth";
+  import useAuth from "@/auth/composables/useAuth";
   const { user } = useAuth();
 </script>
 

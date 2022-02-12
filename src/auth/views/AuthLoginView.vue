@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import AuthLoginForm from "@/components/AuthLoginForm.vue";
+import AuthLoginForm from "@/auth/components/AuthLoginForm.vue";
 </script>
 
 <template>

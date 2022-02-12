@@ -1,15 +1,15 @@
 <script setup lang="ts">
-import InputField from "@/uiKit/InputField.vue";
-import AppButton from "@/uiKit/AppButton.vue";
+import InputField from "@/auth/uiKit/InputField.vue";
+import AppButton from "@/auth/uiKit/AppButton.vue";
 import { useField } from "vee-validate";
 import * as yup from "yup";
 import { reactive } from "vue";
-import useAuth from "@/composables/useAuth";
+import useAuth from "@/auth/composables/useAuth";
 import { useRouter, useRoute } from "vue-router";
 
 const router = useRouter();
 const route = useRoute();
-const { login } = useAuth();
+const { register } = useAuth();
 
 const state = reactive({
   submitError: null as string | null,
@@ -23,15 +23,13 @@ const fieldPassword = useField<string>("password", yup.string().required(), {
   initialValue: "",
 });
 
-function handleFormSubmit() {
-  state.submitError = null;
+async function handleFormSubmit() {
   state.submitPending = true;
-
-  const loginValues = {
+  const values = {
     email: fieldEmail.value.value,
     password: fieldPassword.value.value,
   };
-  login(loginValues)
+  register(values)
     .catch((error: any) => {
       state.submitError = error;
       throw new Error(error);
@@ -52,9 +50,6 @@ function handleFormSubmit() {
 
 <template>
   <form @submit.prevent="handleFormSubmit">
-    <div class="bg-red-300 p-3 rounded my-3" v-if="state.submitError">
-      {{ state.submitError }}
-    </div>
     <div class="mt-4">
       <InputField
         type="email"
@@ -74,12 +69,9 @@ function handleFormSubmit() {
     </div>
 
     <div class="mt-4">
-      <AppButton type="submit">
-        {{ state.submitPending ? "Pending..." : "Login" }}
+      <AppButton type="submit" :disabled="state.submitPending">
+        {{ state.submitPending ? "Pending..." : "Register" }}
       </AppButton>
-    </div>
-    <div class="mt-4">
-      <router-link to="/forgot-password">Forgot password</router-link>
     </div>
   </form>
 </template>

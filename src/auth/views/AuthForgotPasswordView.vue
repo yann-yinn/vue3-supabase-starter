@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import AuthForgotPasswordForm from "@/components/AuthForgotPasswordForm.vue";
+import AuthForgotPasswordForm from "@/auth/components/AuthForgotPasswordForm.vue";
 </script>
 
 <template>

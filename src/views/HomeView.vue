@@ -1,6 +1,6 @@
 <script lang="ts" setup>
-import useAuth from "@/composables/useAuth";
-import AppButton from "@/uiKit/AppButton.vue";
+import useAuth from "@/auth/composables/useAuth";
+import AppButton from "@/auth/uiKit/AppButton.vue";
 import { useRouter } from "vue-router";
 const router = useRouter();
 const { user } = useAuth();

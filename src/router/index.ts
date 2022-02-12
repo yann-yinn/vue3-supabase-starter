@@ -1,6 +1,6 @@
 import { createRouter, createWebHistory } from "vue-router";
-import HomeView from "../views/HomeView.vue";
-import useAuth from "@/composables/useAuth";
+import HomeView from "@/views/HomeView.vue";
+import useAuth from "@/auth/composables/useAuth";
 
 const router = createRouter({
   history: createWebHistory(import.meta.env.BASE_URL),
@@ -13,27 +13,27 @@ const router = createRouter({
     {
       path: "/auth/login",
       name: "authLogin",
-      component: () => import("@/views/AuthLoginView.vue"),
+      component: () => import("@/auth/views/AuthLoginView.vue"),
     },
     {
       path: "/auth/logout",
       name: "authLogout",
-      component: () => import("@/views/AuthLogoutView.vue"),
+      component: () => import("@/auth/views/AuthLogoutView.vue"),
     },
     {
       path: "/auth/register",
       name: "authRegister",
-      component: () => import("@/views/AuthRegisterView.vue"),
+      component: () => import("@/auth/views/AuthRegisterView.vue"),
     },
     {
       path: "/auth/forgot-password",
       name: "authForgotPassword",
-      component: () => import("@/views/AuthForgotPasswordView.vue"),
+      component: () => import("@/auth/views/AuthForgotPasswordView.vue"),
     },
     {
       path: "/auth/profile",
       name: "authProfile",
-      component: () => import("@/views/AuthProfileView.vue"),
+      component: () => import("@/auth/views/AuthProfileView.vue"),
     },
   ],
 });

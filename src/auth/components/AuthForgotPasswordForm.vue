@@ -1,10 +1,10 @@
 <script setup lang="ts">
-import InputField from "@/uiKit/InputField.vue";
-import AppButton from "@/uiKit/AppButton.vue";
+import InputField from "@/auth/uiKit/InputField.vue";
+import AppButton from "@/auth/uiKit/AppButton.vue";
 import { useField } from "vee-validate";
 import * as yup from "yup";
 import { reactive } from "vue";
-import useAuth from "@/composables/useAuth";
+import useAuth from "@/auth/composables/useAuth";
 
 interface State {
   submitError: string | null;
