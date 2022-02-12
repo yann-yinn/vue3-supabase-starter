@@ -4,7 +4,7 @@ import AppButton from "@/uiKit/AppButton.vue";
 import { useField } from "vee-validate";
 import * as yup from "yup";
 import { reactive } from "vue";
-import useSupabase from "@/composables/useSupabase";
+import useAuth from "@/composables/useAuth";
 import useStore from "@/stores";
 
 interface State {
@@ -12,7 +12,7 @@ interface State {
   submitPending: boolean;
 }
 
-const { supabase } = useSupabase();
+const { resetPassword } = useAuth();
 const store = useStore();
 
 const state = reactive<State>({
@@ -26,8 +26,7 @@ const fieldEmail = useField<string>("email", yup.string().required(), {
 
 async function handleFormSubmit() {
   state.submitPending = true;
-  supabase.auth.api
-    .resetPasswordForEmail(fieldEmail.value.value)
+  resetPassword(fieldEmail.value.value)
     .catch((error: any) => {
       state.submitError = error;
       throw new Error(error);
