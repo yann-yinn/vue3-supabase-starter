@@ -43,6 +43,7 @@ Exemple: afficher un lien dans le menu seulement pour un utilisateur connecté:
 <template>
   <div>
     <div v-if="user">Your email is {{ user.email }}<div>
+    <div v-else>Vous n'êtes pas connecté</div>
   </div>
 </template>
 ```
