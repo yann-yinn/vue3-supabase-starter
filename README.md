@@ -1,10 +1,15 @@
-# vue3-supabase
+# Vue 3 Supabase Starter
 
-[Work In Progress] Exemple fonctionnel de login / register avec Vue 3 + Supabase.
+Authentification prête à l'emploi avec [Supabase](https://supabase.com/) et Tailwind CSS.
 
 - formulaire de login avec validation (vee-validate)
 - formulaire de création de compte
-- persistence de l'utilisateur connecté dans le store et dans le localStorage
+- persistence de l'utilisateur
 - formulaire de reset du mot de passe (pré-rempli avec email rentré lors du login)
 
-CSS: Tailwind css
+## Getting Started
+
+- Cloner ce repo
+- Créer un fichier `.env` et renseigner les variables présentes dans le fichier `env.d.ts`
+- `npm install`
+- `npm run dev`
