@@ -34,7 +34,7 @@ async function handleFormSubmit() {
     .then(() => {
       state.submitPending = false;
       router.push({
-        name: "home",
+        path: "/auth/email-confirmation",
         query: {
           ...route.query,
         },

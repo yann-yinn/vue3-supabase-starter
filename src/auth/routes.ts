@@ -30,4 +30,9 @@ export default [
     name: "authProfile",
     component: () => import("@/auth/views/AuthProfileView.vue"),
   },
+  {
+    path: "/auth/email-confirmation",
+    name: "authEmailConfirmation",
+    component: () => import("@/auth/views/AuthEmailConfirmationView.vue"),
+  },
 ];
