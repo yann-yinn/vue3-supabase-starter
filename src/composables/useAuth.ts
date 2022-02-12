@@ -47,15 +47,7 @@ async function getUser() {
 
 function register(values: { email: string; password: string }) {
   const supabase = useSupabase();
-  return supabase.auth.signUp(values).then((response) => {
-    if (response.error) {
-      throw new Error(response.error.message);
-    }
-    if (response.user) {
-      user.value = response.user;
-    }
-    return response;
-  });
+  return supabase.auth.signUp(values);
 }
 
 function resetPassword(email: string) {
