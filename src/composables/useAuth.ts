@@ -1,5 +1,5 @@
 import useSupabase from "./useSupabase";
-import type { User } from "@/types";
+import type { User } from "@supabase/gotrue-js/src/lib/types";
 import { ref } from "vue";
 import { useStorage, StorageSerializers } from "@vueuse/core";
 const supabase = useSupabase();

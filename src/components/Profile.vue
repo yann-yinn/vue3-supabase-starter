@@ -4,5 +4,7 @@ const { user } = useAuth();
 </script>
 
 <template>
+  <pre>
   {{ user }}
+  </pre>
 </template>
