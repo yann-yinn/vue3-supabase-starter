@@ -1,13 +1,10 @@
 import useSupabase from "./useSupabase";
 import type { User } from "@/types";
 import { ref } from "vue";
-import { useStorage } from "@vueuse/core";
+import { useStorage, StorageSerializers } from "@vueuse/core";
 
 const user = useStorage<User | null>("user", null, undefined, {
-  serializer: {
-    read: (v: any) => (v ? JSON.parse(v) : null),
-    write: (v: any) => JSON.stringify(v),
-  },
+  serializer: StorageSerializers.object,
 });
 const forgotPasswordEmail = ref<string>("");
 
