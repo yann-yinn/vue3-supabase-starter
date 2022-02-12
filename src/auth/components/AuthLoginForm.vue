@@ -79,7 +79,7 @@ function handleFormSubmit() {
       </AppButton>
     </div>
     <div class="mt-4">
-      <router-link to="/forgot-password">Forgot password</router-link>
+      <router-link to="/auth/forgot-password">Forgot password</router-link>
     </div>
   </form>
 </template>

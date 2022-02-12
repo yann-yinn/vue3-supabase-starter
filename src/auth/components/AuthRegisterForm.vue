@@ -24,17 +24,15 @@ const fieldPassword = useField<string>("password", yup.string().required(), {
 });
 
 async function handleFormSubmit() {
+  state.submitError = null;
   state.submitPending = true;
   const values = {
     email: fieldEmail.value.value,
     password: fieldPassword.value.value,
   };
   register(values)
-    .catch((error: any) => {
-      state.submitError = error;
-      throw new Error(error);
-    })
     .then(() => {
+      state.submitPending = false;
       router.push({
         name: "home",
         query: {
@@ -42,14 +40,19 @@ async function handleFormSubmit() {
         },
       });
     })
-    .finally(() => {
+    .catch((error: any) => {
       state.submitPending = false;
+      state.submitError = error;
+      throw new Error(error);
     });
 }
 </script>
 
 <template>
   <form @submit.prevent="handleFormSubmit">
+    <div class="bg-red-300 p-3 rounded my-3" v-if="state.submitError">
+      {{ state.submitError }}
+    </div>
     <div class="mt-4">
       <InputField
         type="email"

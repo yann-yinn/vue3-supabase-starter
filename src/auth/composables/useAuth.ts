@@ -51,7 +51,13 @@ async function getUser() {
 }
 
 function register(values: { email: string; password: string }) {
-  return supabase.auth.signUp(values);
+  return supabase.auth.signUp(values).then((result) => {
+    // si un compte existe déjà, considérons qu'une erreur est arrivée
+    if (result.error) {
+      throw new Error(result.error.message);
+    }
+    return result;
+  });
 }
 
 function resetPassword(email: string) {
