@@ -3,7 +3,12 @@ import type { User } from "@/types";
 import { ref } from "vue";
 import { useStorage } from "@vueuse/core";
 
-const user = useStorage<User | null>("user", null);
+const user = useStorage<User | null>("user", null, undefined, {
+  serializer: {
+    read: (v: any) => (v ? JSON.parse(v) : null),
+    write: (v: any) => JSON.stringify(v),
+  },
+});
 const forgotPasswordEmail = ref<string>("");
 
 function login(values: { email: string; password: string }) {
