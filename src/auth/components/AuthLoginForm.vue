@@ -1,11 +1,11 @@
 <script setup lang="ts">
 import InputField from "@/auth/uiKit/InputField.vue";
 import AppButton from "@/auth/uiKit/AppButton.vue";
-import { useField } from "vee-validate";
-import * as yup from "yup";
-import { reactive } from "vue";
 import useAuth from "@/auth/composables/useAuth";
+import { useField } from "vee-validate";
+import { reactive } from "vue";
 import { useRouter, useRoute } from "vue-router";
+import * as yup from "yup";
 
 const router = useRouter();
 const route = useRoute();

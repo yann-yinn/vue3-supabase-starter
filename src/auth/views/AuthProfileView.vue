@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import AuthProfile from "@/components/AuthProfile.vue";
+import AuthProfile from "@/auth/components/AuthProfile.vue";
 </script>
 
 <template>
