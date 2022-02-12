@@ -1,6 +1,6 @@
 import { createRouter, createWebHistory } from "vue-router";
 import HomeView from "../views/HomeView.vue";
-import useStore from "@/stores/index";
+// import useAuth from "@/composables/useAuth";
 
 const router = createRouter({
   history: createWebHistory(import.meta.env.BASE_URL),
@@ -28,11 +28,13 @@ const router = createRouter({
   ],
 });
 
+/*
 router.beforeEach(async (to, from) => {
-  const store = useStore();
+  const { user } = useAuth();
   if (to.name === "login") {
-    if (store.user) return "/home";
+    if (user) return "/";
   }
 });
+*/
 
 export default router;

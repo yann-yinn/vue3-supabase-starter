@@ -1,9 +1,7 @@
 <script setup lang="ts">
-import useSupabase from "@/composables/useSupabase";
-import useStore from "@/stores";
+import useAuth from "./composables/useAuth";
 
-const store = useStore();
-const { logout } = useSupabase();
+const { logout, user } = useAuth();
 
 async function handleLogoutClick() {
   logout();
@@ -13,9 +11,9 @@ async function handleLogoutClick() {
 <template>
   <div class="text-center">
     <router-link to="/"> Home </router-link>
-    <router-link v-if="!store.user" to="/login"> Login </router-link>
-    <router-link v-if="!store.user" to="/register"> Register </router-link>
-    <a v-if="store.user" class="cursor-pointer" @click="handleLogoutClick">
+    <router-link v-if="!user" to="/login"> Login </router-link>
+    <router-link v-if="!user" to="/register"> Register </router-link>
+    <a v-if="user" class="cursor-pointer" @click="handleLogoutClick">
       Logout
     </a>
   </div>

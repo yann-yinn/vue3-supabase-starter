@@ -5,15 +5,13 @@ import { useField } from "vee-validate";
 import * as yup from "yup";
 import { reactive } from "vue";
 import useAuth from "@/composables/useAuth";
-import useStore from "@/stores";
 
 interface State {
   submitError: string | null;
   submitPending: boolean;
 }
 
-const { resetPassword } = useAuth();
-const store = useStore();
+const { resetPassword, forgotPasswordEmail } = useAuth();
 
 const state = reactive<State>({
   submitError: null as string | null,
@@ -21,7 +19,7 @@ const state = reactive<State>({
 });
 
 const fieldEmail = useField<string>("email", yup.string().required(), {
-  initialValue: store.forgotPasswordEmail ? store.forgotPasswordEmail : "",
+  initialValue: forgotPasswordEmail ? forgotPasswordEmail : "",
 });
 
 async function handleFormSubmit() {

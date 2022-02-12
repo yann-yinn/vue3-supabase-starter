@@ -1,32 +1,32 @@
-import useStore from "@/stores";
 import useSupabase from "./useSupabase";
+import type { User } from "@/types";
+import { ref } from "vue";
+import { useStorage } from "@vueuse/core";
+
+const user = useStorage<User | null>("user", null);
+const forgotPasswordEmail = ref<string>("");
 
 function login(values: { email: string; password: string }) {
-  const store = useStore();
   const supabase = useSupabase();
   return supabase.auth.signIn(values).then((response) => {
     if (response.error) {
-      // sauvegarder l'email du login dans le store, pour pouvoir
+      // sauvegarder l'email du login pour pouvoir
       // pré-remplir le champ "email" du formulaire de "forgot-password"
-      store.setForgotPasswordEmail(values.email);
+      forgotPasswordEmail.value = values.email;
       throw new Error(response.error.message);
     }
     if (response.user) {
-      store.setUser({
-        id: response.user.id,
-        email: response.user.email as string,
-      });
+      user.value = response.user;
     }
     return response;
   });
 }
 
 async function logout() {
-  const store = useStore();
   const supabase = useSupabase();
   const { error } = await supabase.auth.signOut();
   if (error) throw error;
-  store.setUser(null);
+  user.value = null;
 }
 
 async function getUser() {
@@ -44,17 +44,13 @@ async function getUser() {
 }
 
 function register(values: { email: string; password: string }) {
-  const store = useStore();
   const supabase = useSupabase();
   return supabase.auth.signUp(values).then((response) => {
     if (response.error) {
       throw new Error(response.error.message);
     }
     if (response.user) {
-      store.setUser({
-        id: response.user.id,
-        email: response.user.email as string,
-      });
+      user.value = response.user;
     }
     return response;
   });
@@ -66,5 +62,13 @@ function resetPassword(email: string) {
 }
 
 export default function useAuth() {
-  return { register, login, logout, getUser, resetPassword };
+  return {
+    user,
+    register,
+    login,
+    logout,
+    getUser,
+    resetPassword,
+    forgotPasswordEmail,
+  };
 }
