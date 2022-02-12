@@ -9,7 +9,13 @@ Authentification prête à l'emploi avec [Supabase](https://supabase.com/) et Ta
 
 ## Getting Started
 
+### Supabase
+
+Vous devez créer un projet sur [Supabase](https://supabase.com/) avant toute chose.
+
+### Code
+
 - Cloner ce repo
-- Créer un fichier `.env` et renseigner les variables présentes dans le fichier `env.d.ts`
+- Créer un fichier `.env` et renseigner les variables présentes dans le fichier `env.d.ts`.
 - `npm install`
 - `npm run dev`
