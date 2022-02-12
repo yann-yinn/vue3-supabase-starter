@@ -22,6 +22,8 @@ Vous devez créer un projet sur [Supabase](https://supabase.com/) avant toute ch
 
 ## Utilisation
 
+### useAuth
+
 Utilisez le composable `useAuth` pour tout ce qui est lié à l'authentification.
 
 ```js
@@ -29,3 +31,11 @@ const { user, login, register, logout } = useAuth();
 ```
 
 Ci-dessus, `user` est l'utilisateur actuellement connecté, il s'agit d'une variable réactive.
+
+### useSupabase
+
+Le projet utilise le package `@supabase/supabase-js`. Pour récupérer l'instance du client supabase.
+
+```js
+const supabase = useSupabase();
+```
