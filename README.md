@@ -32,6 +32,21 @@ const { user, login, register, logout } = useAuth();
 
 Ci-dessus, `user` est l'utilisateur actuellement connecté, il s'agit d'une variable réactive.
 
+Exemple: afficher un lien dans le menu seulement pour un utilisateur connecté:
+
+```html
+<script setup lang="ts">
+  import useAuth from "./composables/useAuth";
+  const { user } = useAuth();
+</script>
+
+<template>
+  <div>
+    <div v-if="user">Your email is {{ user.email }}<div>
+  </div>
+</template>
+```
+
 ### useSupabase
 
 Le projet utilise le package `@supabase/supabase-js`. Pour récupérer l'instance du client supabase.
