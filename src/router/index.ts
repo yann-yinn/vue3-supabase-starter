@@ -16,6 +16,11 @@ const router = createRouter({
       component: () => import("@/views/LoginView.vue"),
     },
     {
+      path: "/logout",
+      name: "logout",
+      component: () => import("@/views/LogoutView.vue"),
+    },
+    {
       path: "/register",
       name: "register",
       component: () => import("@/views/RegisterView.vue"),
@@ -24,6 +29,11 @@ const router = createRouter({
       path: "/forgot-password",
       name: "forgotPassword",
       component: () => import("@/views/ForgotPasswordView.vue"),
+    },
+    {
+      path: "/profile",
+      name: "profile",
+      component: () => import("@/views/ProfileView.vue"),
     },
   ],
 });

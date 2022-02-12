@@ -2,6 +2,7 @@ import useSupabase from "./useSupabase";
 import type { User } from "@/types";
 import { ref } from "vue";
 import { useStorage, StorageSerializers } from "@vueuse/core";
+const supabase = useSupabase();
 
 const user = useStorage<User | null>("user", null, undefined, {
   serializer: StorageSerializers.object,
@@ -9,14 +10,15 @@ const user = useStorage<User | null>("user", null, undefined, {
 const forgotPasswordEmail = ref<string>("");
 
 function login(values: { email: string; password: string }) {
-  const supabase = useSupabase();
   return supabase.auth.signIn(values).then((response) => {
     if (response.error) {
-      // sauvegarder l'email du login pour pouvoir
+      // En cas d'erreur au login, sauvegarder l'email pour pouvoir
       // pré-remplir le champ "email" du formulaire de "forgot-password"
       forgotPasswordEmail.value = values.email;
       throw new Error(response.error.message);
     }
+    // succès de la réponse, sauvegarder notre utilisateur
+    // dans notre variable réactive globale "user"
     if (response.user) {
       user.value = response.user;
     }
@@ -25,15 +27,18 @@ function login(values: { email: string; password: string }) {
 }
 
 async function logout() {
-  const supabase = useSupabase();
   const { error } = await supabase.auth.signOut();
   if (error) throw error;
+  // supprimer de la mémoire de l'app notre user
   user.value = null;
 }
 
+/**
+ * Récupérer depuis le serveur distant notre objet utilisateur
+ * @returns
+ */
 async function getUser() {
   let result = null;
-  const supabase = useSupabase();
   const session = supabase.auth.session();
   if (session) {
     const { user, error } = await supabase.auth.api.getUser(
@@ -42,16 +47,14 @@ async function getUser() {
     if (error) throw error;
     result = user;
   }
-  return Promise.resolve(result);
+  return result;
 }
 
 function register(values: { email: string; password: string }) {
-  const supabase = useSupabase();
   return supabase.auth.signUp(values);
 }
 
 function resetPassword(email: string) {
-  const supabase = useSupabase();
   return supabase.auth.api.resetPasswordForEmail(email);
 }
 

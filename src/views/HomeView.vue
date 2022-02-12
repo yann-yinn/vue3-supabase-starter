@@ -9,15 +9,15 @@ const { user } = useAuth();
 <template>
   <main>
     <div class="mx-auto max-w-md mt-4 text-center">
-      <h1 class="text-3xl mt-5">Vue 3 + Supabase POC</h1>
+      <h1 class="text-3xl mt-5">Vue 3 + Supabase Starter</h1>
       <div v-if="!user">
         <AppButton @click="router.push('/login')" class="mt-5">
-          Se connecter
+          Log in
         </AppButton>
       </div>
       <div v-else>
         <p class="mt-5">
-          Vous êtes connecté <em>{{ user.email }}</em> !
+          Hi <em>{{ user.email }}</em> ! You are logged in.
         </p>
       </div>
     </div>
