@@ -11,7 +11,7 @@ const { user } = useAuth();
     <div class="mx-auto max-w-md mt-4 text-center">
       <h1 class="text-3xl mt-5">Vue 3 + Supabase Starter</h1>
       <div v-if="!user">
-        <AppButton @click="router.push('/login')" class="mt-5">
+        <AppButton @click="router.push('/auth/login')" class="mt-5">
           Log in
         </AppButton>
       </div>

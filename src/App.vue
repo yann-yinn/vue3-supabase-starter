@@ -6,10 +6,10 @@ const { user } = useAuth();
 <template>
   <div class="text-center">
     <router-link to="/"> Home </router-link>
-    <router-link v-if="!user" to="/login"> Login </router-link>
-    <router-link v-if="!user" to="/register"> Register </router-link>
-    <router-link v-if="user" to="/profile"> Profile </router-link>
-    <router-link v-if="user" to="/logout"> Logout </router-link>
+    <router-link v-if="!user" to="/auth/login"> Login </router-link>
+    <router-link v-if="!user" to="/auth/register"> Register </router-link>
+    <router-link v-if="user" to="/auth/profile"> Profile </router-link>
+    <router-link v-if="user" to="/auth/logout"> Logout </router-link>
     <span v-if="user">👤 Hello {{ user.email }}</span>
   </div>
   <div>
