@@ -2,6 +2,8 @@
 
 Authentification prête à l'emploi avec [Supabase](https://supabase.com/), Vue 3 & Tailwind CSS.
 
+Démo: https://vue3-supabase-starter.netlify.app/
+
 - formulaire de login avec validation (vee-validate)
 - formulaire de création de compte
 - persistence de l'utilisateur
