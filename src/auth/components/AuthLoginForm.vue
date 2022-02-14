@@ -78,8 +78,10 @@ function handleFormSubmit() {
         {{ state.submitPending ? "Pending..." : "Login" }}
       </AppButton>
     </div>
+    <!--
     <div class="mt-4">
       <router-link to="/auth/forgot-password">Forgot password</router-link>
     </div>
+    -->
   </form>
 </template>
