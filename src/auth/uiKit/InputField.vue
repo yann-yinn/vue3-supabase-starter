@@ -44,15 +44,7 @@ function handleShowPassword(value: boolean) {
         @input="handleInput"
         :type="state.type"
         :required="required"
-        class="
-          mt-1
-          block
-          w-full
-          rounded-md
-          bg-gray-100
-          border-transparent
-          focus:border-gray-500 focus:bg-white focus:ring-0
-        "
+        class="mt-1 block w-full rounded-md bg-gray-100 border-transparent focus:border-gray-500 focus:bg-white focus:ring-0"
       />
     </div>
     <div v-if="error" class="text-red-600 mt-2">{{ error }}</div>

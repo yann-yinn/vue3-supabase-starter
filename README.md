@@ -19,6 +19,9 @@ Vous devez créer un projet sur [Supabase](https://supabase.com/) avant toute ch
 
 - Cloner ce repo
 - Créer un fichier `.env` et renseigner les variables présentes dans le fichier `env.d.ts`.
+
+Renseigner notamment les variables d'env `VITE_SUPABASE_URL`et `VITE_SUPABASE_ANON_KEY`, que l'on peut trouver sur la page "settings > API", qui permettent au client supabase de communiquer avec l'API de supabase.
+
 - `npm install`
 - `npm run dev`
 
