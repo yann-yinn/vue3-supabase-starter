@@ -66,4 +66,4 @@ const supabase = useSupabase();
 ### Todo
 
 - [ ] forgot password
-- [x] email confirmation
+- [ ] email confirmation
